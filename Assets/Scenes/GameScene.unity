@@ -720,6 +720,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6403501368675992996, guid: aa6e7b1f6e300fd4e894dee35139ec9c, type: 3}
+      propertyPath: ASCIILevel
+      value: "     {\r\n        \"level_1\":\r\n        {\r\n        \"1\": ===x==========,\r\n       
+        \"2\": ======x=======,\r\n        \"4\": =====x========,\r\n        \"5\":
+        ==========x===,\r\n        \"6\": ========x=====,\r\n        \"7\": =====x========,\r\n       
+        \"8\": ==x===========,\r\n        }\r\n        \"level_2\":\r\n        {\r\n       
+        \"1\": =========x====,\r\n        \"2\": ==x====x======,\r\n        \"4\":
+        ====x======x==,\r\n        \"5\": =========x====,\r\n        \"6\": ===x=======x==,\r\n       
+        \"7\": ========x=====,\r\n        \"8\": ===x=======x==,\r\n        }\r\n       
+        \"level_3\":\r\n        {\r\n        \"1\": =====x======x=,\r\n        \"2\":
+        ==x===x===x===,\r\n        \"4\": ====x========x,\r\n        \"5\": =x========x===,\r\n       
+        \"6\": ======x====x==,\r\n        \"7\": ====x==x======,\r\n        \"8\":
+        =x=========x==,\r\n        }\r\n        \"level_4\":\r\n        {\r\n       
+        \"1\": ===x=====x==x=,\r\n        \"2\": =x===x===x====,\r\n        \"4\":
+        ===x===x===x==,\r\n        \"5\": ========x=====,\r\n        \"6\": ==x==x======x=,\r\n       
+        \"7\": ====x===x==x==,\r\n        \"8\": ===x====x====x,\r\n        }\r\n       
+        \"level_5\"\r\n        {\r\n        \"1\": ===x==x===x==x,\r\n        \"2\":
+        ==x===x=x===x=,\r\n        \"4\": x===x=x===x=x=,\r\n        \"5\": ==x==x===x==x=,\r\n       
+        \"6\": ==x=x===x====x,\r\n        \"7\": x=x===x===x=x=,\r\n        \"8\":
+        ==x=x====x==x=,\r\n        }\r\n        }"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -739,7 +760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 390681665711009530, guid: bfe9b41793d7ad74aaad6b3184510858, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.21
+      value: -6.09
       objectReference: {fileID: 0}
     - target: {fileID: 390681665711009530, guid: bfe9b41793d7ad74aaad6b3184510858, type: 3}
       propertyPath: m_LocalPosition.z
@@ -776,10 +797,6 @@ PrefabInstance:
     - target: {fileID: 7949514923917135676, guid: bfe9b41793d7ad74aaad6b3184510858, type: 3}
       propertyPath: m_Name
       value: Obstacle
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336603387987498236, guid: bfe9b41793d7ad74aaad6b3184510858, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

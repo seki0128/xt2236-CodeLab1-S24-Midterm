@@ -6,6 +6,7 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     public float moveSpeed;
+    private float minYPos = -6;
     private float timer = 0.2f;
     private float time = 0;
     
@@ -20,6 +21,11 @@ public class ObstacleScript : MonoBehaviour
         {
             Move();
             time = 0;
+        }
+        // When the obstacle move out of the screen, destroy it
+        if (transform.position.y <= minYPos)
+        {
+            Destroy(gameObject);
         }
 
     }
