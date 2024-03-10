@@ -9,12 +9,11 @@ public class PlayerInfoScript : MonoBehaviour
 {
     private TextMeshProUGUI playerInput;
     
-    public string playerName;
     public int playerHeart = 3;
     
     private void Awake()
     {
-        if (SceneManager.sceneCount == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             playerInput = GameObject.Find("NameBar").GetComponent<TextMeshProUGUI>();
         }
@@ -25,6 +24,8 @@ public class PlayerInfoScript : MonoBehaviour
         if (playerHeart <= 0)
         {
             MainInfo.instance.isGameMode = false;
+            Debug.Log("game is over");
+            
         }
     }
 

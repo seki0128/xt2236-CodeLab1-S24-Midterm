@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481662066282621231}
-  - component: {fileID: 4628263214644593851}
+  - component: {fileID: 7500465731936267625}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 4516991028797949288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4628263214644593851
+--- !u!114 &7500465731936267625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameMode: 0
-  playerName: 
+  playerName: Player
   distanceSpeed: 0
   distanceRecord: 0
 --- !u!1 &1404579316365235906
@@ -93,4 +93,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ebb8d1acba97af42a9e699a6bd7ab25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ASCIILevel: 
+  ASCIILevel: "     {\r\n        \"level_1\":\r\n        {\r\n        \"1\": ===x==========,\r\n       
+    \"2\": ======x=======,\r\n        \"4\": =====x========,\r\n        \"5\": ==========x===,\r\n       
+    \"6\": ========x=====,\r\n        \"7\": =====x========,\r\n        \"8\": ==x===========,\r\n       
+    }\r\n        \"level_2\":\r\n        {\r\n        \"1\": =========x====,\r\n       
+    \"2\": ==x====x======,\r\n        \"4\": ====x======x==,\r\n        \"5\": =========x====,\r\n       
+    \"6\": ===x=======x==,\r\n        \"7\": ========x=====,\r\n        \"8\": ===x=======x==,\r\n       
+    }\r\n        \"level_3\":\r\n        {\r\n        \"1\": =====x======x=,\r\n       
+    \"2\": ==x===x===x===,\r\n        \"4\": ====x========x,\r\n        \"5\": =x========x===,\r\n       
+    \"6\": ======x====x==,\r\n        \"7\": ====x==x======,\r\n        \"8\": =x=========x==,\r\n       
+    }\r\n        \"level_4\":\r\n        {\r\n        \"1\": ===x=====x==x=,\r\n       
+    \"2\": =x===x===x====,\r\n        \"4\": ===x===x===x==,\r\n        \"5\": ========x=====,\r\n       
+    \"6\": ==x==x======x=,\r\n        \"7\": ====x===x==x==,\r\n        \"8\": ===x====x====x,\r\n       
+    }\r\n        \"level_5\"\r\n        {\r\n        \"1\": ===x==x===x==x,\r\n       
+    \"2\": ==x===x=x===x=,\r\n        \"4\": x===x=x===x=x=,\r\n        \"5\": ==x==x===x==x=,\r\n       
+    \"6\": ==x=x===x====x,\r\n        \"7\": x=x===x===x=x=,\r\n        \"8\": ==x=x====x==x=,\r\n       
+    }\r\n        }"
