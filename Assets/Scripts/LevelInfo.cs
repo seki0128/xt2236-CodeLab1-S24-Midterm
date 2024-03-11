@@ -15,7 +15,7 @@ public class LevelInfo : MonoBehaviour
         "2": ======x=======,
         "4": =====x========,
         "5": ==========x===,
-        "6": ========x=====,
+        "6": ===o====x=====,
         "7": =====x========,
         "8": ==x===========,
         }
@@ -23,7 +23,7 @@ public class LevelInfo : MonoBehaviour
         {
         "1": =========x====,
         "2": ==x====x======,
-        "4": ====x======x==,
+        "4": ====x====o=x==,
         "5": =========x====,
         "6": ===x=======x==,
         "7": ========x=====,
@@ -37,14 +37,14 @@ public class LevelInfo : MonoBehaviour
         "5": =x========x===,
         "6": ======x====x==,
         "7": ====x==x======,
-        "8": =x=========x==,
+        "8": =x======o==x==,
         }
         "level_4":
         {
         "1": ===x=====x==x=,
         "2": =x===x===x====,
         "4": ===x===x===x==,
-        "5": ========x=====,
+        "5": ====o===x=====,
         "6": ==x==x======x=,
         "7": ====x===x==x==,
         "8": ===x====x====x,
@@ -55,25 +55,20 @@ public class LevelInfo : MonoBehaviour
         "2": ==x===x=x===x=,
         "4": x===x=x===x=x=,
         "5": ==x==x===x==x=,
-        "6": ==x=x===x====x,
+        "6": ==x=x===x==o=x,
         "7": x=x===x===x=x=,
         "8": ==x=x====x==x=,
         }
         }
      */
-
-    private GameObject levelObstacle;
+    
     private int levelIndex = 0;
 
-    private int fixedXPos = -10;
-    private int fixedYPos = 20;
-    private float fixedXGap = 2.0f;
-    private float fixedYGap = 3.0f;
+    private int fixedXPos = -16;
+    private int fixedYPos = 30;
+    private float fixedXGap = 2.5f;
+    private float fixedYGap = 4.0f;
     
-    private void Awake()
-    {
-        levelObstacle = Resources.Load<GameObject>("Prefabs/Obstacle");
-    }
 
     private void Update()
     {
@@ -103,9 +98,16 @@ public class LevelInfo : MonoBehaviour
 
                 if (c == 'x')
                 {
-                    GameObject newObstacle = Instantiate(levelObstacle);
+                    GameObject newObstacle = Instantiate(Resources.Load<GameObject>("Prefabs/Hand"));
                     newObstacle.transform.position = new Vector3(xLevelPos*fixedXGap + fixedXPos, -yLevelPos*fixedYGap + fixedYPos, 0);
                 }
+
+                else if (c == 'o')
+                {
+                    GameObject newObstacle = Instantiate(Resources.Load<GameObject>("Prefabs/Can"));
+                    newObstacle.transform.position = new Vector3(xLevelPos*fixedXGap + fixedXPos, -yLevelPos*fixedYGap + fixedYPos, 0);
+                }
+                
             }
             
         }

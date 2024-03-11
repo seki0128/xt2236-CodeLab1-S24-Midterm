@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerInfoScript : MonoBehaviour
 {
     private TextMeshProUGUI playerInput;
+    private TextMeshPro score;
     
     public int playerHeart = 3;
     
@@ -17,6 +18,11 @@ public class PlayerInfoScript : MonoBehaviour
         {
             playerInput = GameObject.Find("NameBar").GetComponent<TextMeshProUGUI>();
         }
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            score = GameObject.Find("Score").GetComponent<TextMeshPro>();
+        }
     }
 
     private void Update()
@@ -24,9 +30,12 @@ public class PlayerInfoScript : MonoBehaviour
         if (playerHeart <= 0)
         {
             MainInfo.instance.isGameMode = false;
+            MainInfo.instance.isSwitching = true;
             Debug.Log("game is over");
-            
+            playerHeart = 3;
         }
+
+        score.text = "U ATE \n" + MainInfo.instance.playerScore + "\nCAN(s)";
     }
 
     public void StartGame()

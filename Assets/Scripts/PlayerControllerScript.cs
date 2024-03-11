@@ -2,19 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
-    public int moveDistance = 2;
+    public int force = 50;
     private bool isKicking;
 
     private TextMeshPro playerNameText;
     private SpriteRenderer sR;
     private PlayerInfoScript playerInfo;
+    private Rigidbody2D rB;
 
     void Awake()
     {
+        rB = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
         playerInfo = GetComponent<PlayerInfoScript>();
         playerNameText = GetComponentInChildren<TextMeshPro>();
@@ -29,29 +32,17 @@ public class PlayerControllerScript : MonoBehaviour
 
     void MovePlayer()
     {
-        Vector3 playerPos = transform.position;
-        
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            playerPos = new Vector3(playerPos.x - moveDistance, playerPos.y, 0);
+            sR.flipX = false;
+            rB.AddForce(Vector2.left * force);
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            playerPos = new Vector3(playerPos.x + moveDistance, playerPos.y, 0);
+            sR.flipX = true;
+            rB.AddForce(Vector2.right * force);
         }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            playerPos = new Vector3(playerPos.x, playerPos.y + moveDistance, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            playerPos = new Vector3(playerPos.x, playerPos.y - moveDistance, 0);
-        }
-
-        transform.position = playerPos;
     }
 
     void KickObstacle()
@@ -68,22 +59,27 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Obstacle" )
+        Debug.Log("hit");
+        if (other.gameObject.CompareTag("Obstacle") )
+        {
+            /*
+             *  I wanna add a VFX in this place
+             */
+            playerInfo.playerHeart--;
+            Debug.Log("bunch!!!!" + playerInfo.playerHeart);
+        }
+
+        if (other.gameObject.CompareTag("Food"))
         {
             if (isKicking)
             {
                 Destroy(other.gameObject);
-            }
-            else
-            {
-                /*
-                 *  I wanna add a VFX in this place
-                 */
-                playerInfo.playerHeart--;
-                Debug.Log("bunch!!!!" + playerInfo.playerHeart);
+                MainInfo.instance.playerScore++;
             }
         }
     }
+    
 }

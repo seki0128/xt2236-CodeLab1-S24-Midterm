@@ -13,9 +13,8 @@ public class MainInfo : MonoBehaviour
     public static MainInfo instance;
 
     public bool isGameMode;
-    private bool isSwitching = false;
+    public bool isSwitching = false;
     public string playerName = "Player";
-    public int distanceSpeed = 2;
     public int playerScore = 0;
 
     private const string FILE_DIR = "/DATA/";
@@ -40,19 +39,11 @@ public class MainInfo : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (!isGameMode && isSwitching)
         {
-            ReadScore();
-        }
-        
-        if (isGameMode)
-        {
-            playerScore += distanceSpeed;
-        }else if (isSwitching)
-        {
+            isSwitching = false;
             RecordScore();
             WrapGame();
-            isSwitching = false;
         }
     }
     
@@ -64,6 +55,7 @@ public class MainInfo : MonoBehaviour
     void WrapGame()
     {
         SceneManager.LoadScene(2);
+        ReadScore();
     }
 
     void RecordScore()
