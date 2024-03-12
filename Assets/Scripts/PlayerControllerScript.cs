@@ -8,15 +8,18 @@ using UnityEngine;
 public class PlayerControllerScript : MonoBehaviour
 {
     public int force = 50;
-    private bool isKicking;
+    private bool isEating;
+    private bool isDefending;
 
     private TextMeshPro playerNameText;
     private SpriteRenderer sR;
     private PlayerInfoScript playerInfo;
     private Rigidbody2D rB;
+    private AudioSource aS;
 
     void Awake()
     {
+        aS = GetComponentInChildren<AudioSource>();
         rB = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
         playerInfo = GetComponent<PlayerInfoScript>();
@@ -27,7 +30,7 @@ public class PlayerControllerScript : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        KickObstacle();
+        Eat();
     }
 
     void MovePlayer()
@@ -45,16 +48,16 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
-    void KickObstacle()
+    void Eat()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            isKicking = true;
+            isEating = true;
             sR.sprite = Resources.Load<Sprite>("bananaCatKick");
         }
         else
         {
-            isKicking = false;
+            isEating = false;
             sR.sprite = Resources.Load<Sprite>("bananaCat");
         }
     }
@@ -62,24 +65,52 @@ public class PlayerControllerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("hit");
+        if (other.gameObject.CompareTag("Food"))
+        {
+            if (isEating)
+            {
+                Debug.Log("yummyyyyyy");
+                Destroy(other.gameObject);
+                aS.clip = Resources.Load<AudioClip>("Eat");
+                aS.PlayOneShot(aS.clip);
+                MainInfo.instance.playerScore ++;
+            }
+        }
+        
         if (other.gameObject.CompareTag("Obstacle") )
         {
             /*
              *  I wanna add a VFX in this place
              */
+            
+            // When player collides with hands
             playerInfo.playerHeart--;
+                GetHurt(); // Player turned red
+                /*
+                 *  The heart decreases one
+                 */
             Debug.Log("bunch!!!!" + playerInfo.playerHeart);
         }
 
-        if (other.gameObject.CompareTag("Food"))
-        {
-            if (isKicking)
-            {
-                Destroy(other.gameObject);
-                MainInfo.instance.playerScore++;
-            }
-        }
+
     }
+
+    void GetHurt()
+    {
+        sR.color = Color.red;
+        isDefending = true;
+        
+        
+        TextMeshPro heartUI = GameObject.Find("Heart").GetComponent<TextMeshPro>();
+        string currentCount = null;
+        string heartCount = "\u2665";
+        for (int i = 0; i < playerInfo.playerHeart; i++)
+        {
+            currentCount += heartCount;
+        }
+
+        heartUI.text = currentCount;
+    }
+    
     
 }

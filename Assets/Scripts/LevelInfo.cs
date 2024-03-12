@@ -11,74 +11,65 @@ public class LevelInfo : MonoBehaviour
      {
         "level_1":
         {
-        "1": ===x==========,
-        "2": ======x=======,
-        "4": =====x========,
-        "5": ==========x===,
-        "6": ===o====x=====,
-        "7": =====x========,
-        "8": ==x===========,
+        "1": ===y=======x==,
+        "2": ======y=======,
+        "4": =x===y========,
+        "5": ===y======y===,
+        "6": ===y====y=====,
+        "7": x====y=====x==,
+        "8": ==x=y=========,
         }
         "level_2":
         {
-        "1": =========x====,
+        "1": y===y====x====,
         "2": ==x====x======,
-        "4": ====x====o=x==,
-        "5": =========x====,
-        "6": ===x=======x==,
-        "7": ========x=====,
-        "8": ===x=======x==,
+        "4": ====x====y=x==,
+        "5": ====y====x==y=,
+        "6": =y=x=======x==,
+        "7": ===y====x=====,
+        "8": ===x===y===x==,
         }
         "level_3":
         {
-        "1": =====x======x=,
-        "2": ==x===x===x===,
-        "4": ====x========x,
-        "5": =x========x===,
-        "6": ======x====x==,
-        "7": ====x==x======,
-        "8": =x======o==x==,
+        "1": =====x====y=x=,
+        "2": ==x===xy==x===,
+        "4": =y==x====y===x,
+        "5": =x=====y==x===,
+        "6": ===y==x====x==,
+        "7": ====x==x===y==,
+        "8": =x===y==y==x==,
         }
         "level_4":
         {
-        "1": ===x=====x==x=,
-        "2": =x===x===x====,
+        "1": =y=x====yx==x=,
+        "2": =x===x===x=y==,
         "4": ===x===x===x==,
-        "5": ====o===x=====,
+        "5": ====y===x=y===,
         "6": ==x==x======x=,
-        "7": ====x===x==x==,
-        "8": ===x====x====x,
+        "7": ====x===x=yx==,
+        "8": =y=x==y=x==y=x,
         }
         "level_5"
         {
-        "1": ===x==x===x==x,
+        "1": =y=xy=x=y=x==x,
         "2": ==x===x=x===x=,
-        "4": x===x=x===x=x=,
+        "4": x=y=x=x===x=x=,
         "5": ==x==x===x==x=,
-        "6": ==x=x===x==o=x,
-        "7": x=x===x===x=x=,
-        "8": ==x=x====x==x=,
+        "6": =yx=x===x==y=x,
+        "7": x=x=y=x=y=x=x=,
+        "8": ==xyx=y==x==x=,
         }
         }
      */
     
     private int levelIndex = 0;
+    private int currentLevel = 0;
 
-    private int fixedXPos = -16;
-    private int fixedYPos = 30;
-    private float fixedXGap = 2.5f;
-    private float fixedYGap = 4.0f;
+    private int fixedXPos = -14;
+    private int fixedYPos = 45;
+    private float fixedXGap = 1.5f;
+    private float fixedYGap = 5.0f;
     
-
-    private void Update()
-    {
-        //BuildLevel(levelIndex);
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            BuildLevel(1);
-        }
-    }
-
     void BuildLevel(int level)
     {
         JSONNode JsonLevelNode = JSON.Parse(ASCIILevel);
@@ -102,7 +93,7 @@ public class LevelInfo : MonoBehaviour
                     newObstacle.transform.position = new Vector3(xLevelPos*fixedXGap + fixedXPos, -yLevelPos*fixedYGap + fixedYPos, 0);
                 }
 
-                else if (c == 'o')
+                if (c == 'y')
                 {
                     GameObject newObstacle = Instantiate(Resources.Load<GameObject>("Prefabs/Can"));
                     newObstacle.transform.position = new Vector3(xLevelPos*fixedXGap + fixedXPos, -yLevelPos*fixedYGap + fixedYPos, 0);
@@ -111,6 +102,23 @@ public class LevelInfo : MonoBehaviour
             }
             
         }
+    }
+
+    public void GoToNextLevel()
+    {
+        currentLevel++;
+
+        if (currentLevel <= 5)
+        {
+            BuildLevel(currentLevel);
+        }
+        else
+        {
+            MainInfo.instance.isGameMode = false;
+            MainInfo.instance.isSwitching = true;
+        }
+
+        
     }
 
 }

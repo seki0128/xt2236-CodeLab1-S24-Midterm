@@ -14,6 +14,8 @@ public class MainInfo : MonoBehaviour
 
     public bool isGameMode;
     public bool isSwitching = false;
+    private bool isExecuteScoreList;
+    
     public string playerName = "Player";
     public int playerScore = 0;
 
@@ -39,6 +41,11 @@ public class MainInfo : MonoBehaviour
 
     private void Update()
     {
+        if (isExecuteScoreList)
+        {
+            ReadScore();
+        }
+        
         if (!isGameMode && isSwitching)
         {
             isSwitching = false;
@@ -55,7 +62,7 @@ public class MainInfo : MonoBehaviour
     void WrapGame()
     {
         SceneManager.LoadScene(2);
-        ReadScore();
+        isExecuteScoreList = true;
     }
 
     void RecordScore()
@@ -73,7 +80,7 @@ public class MainInfo : MonoBehaviour
             // JSONObject: key + value
             JSONObject samplePlayer = new JSONObject();
             samplePlayer["name"] = "BananaCat";
-            samplePlayer["score"] = 110;
+            samplePlayer["score"] = 1;
             scoreArrayJSON.Add(samplePlayer);
         }
 
@@ -106,7 +113,7 @@ public class MainInfo : MonoBehaviour
             }
             
         }
-
+        
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             TextMeshPro scoreList = GameObject.Find("ScoreList").GetComponent<TextMeshPro>();
@@ -117,6 +124,11 @@ public class MainInfo : MonoBehaviour
             }
 
             scoreList.text = printScore;
+            isExecuteScoreList = false;
         }
+
+
     }
+    
+    
 }
