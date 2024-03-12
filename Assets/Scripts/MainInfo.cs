@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class MainInfo : MonoBehaviour
     public bool isGameMode;
     public bool isSwitching = false;
     private bool isExecuteScoreList;
-    
+
     public string playerName = "Player";
     public int playerScore = 0;
 
@@ -34,6 +35,7 @@ public class MainInfo : MonoBehaviour
         {
             Destroy(this);
         }
+
         StartGame();
 
         FILE_FULL_PATH = Application.dataPath + FILE_DIR + FILE_NAME;
@@ -45,7 +47,7 @@ public class MainInfo : MonoBehaviour
         {
             ReadScore();
         }
-        
+
         if (!isGameMode && isSwitching)
         {
             isSwitching = false;
@@ -53,7 +55,7 @@ public class MainInfo : MonoBehaviour
             WrapGame();
         }
     }
-    
+
     public void StartGame()
     {
         isGameMode = true;
@@ -68,7 +70,7 @@ public class MainInfo : MonoBehaviour
     void RecordScore()
     {
         JSONArray scoreArrayJSON = new JSONArray();
-        
+
         if (File.Exists(FILE_FULL_PATH))
         {
             string JsonString = File.ReadAllText(FILE_FULL_PATH);
@@ -81,17 +83,42 @@ public class MainInfo : MonoBehaviour
             JSONObject samplePlayer = new JSONObject();
             samplePlayer["name"] = "BananaCat";
             samplePlayer["score"] = 1;
+
             scoreArrayJSON.Add(samplePlayer);
         }
 
+        // Add the new record
         JSONObject player = new JSONObject();
         player["name"] = playerName;
         player["score"] = playerScore;
         scoreArrayJSON.Add(player);
+
+        // Sort the array by values
+        for (int i = 0; i < scoreArrayJSON.Count - 1; i++)
+        {
+            for (int j = 0; j < scoreArrayJSON.Count - i - 1; j++)
+            {
+                if (Int32.Parse(scoreArrayJSON[j]["score"].Value) < Int32.Parse(scoreArrayJSON[j + 1]["score"].Value))
+                {
+                    var tem = scoreArrayJSON[j];
+                    scoreArrayJSON[j] = scoreArrayJSON[j + 1];
+                    scoreArrayJSON[j + 1] = tem;
+                }
+            }
+        }
+
+        // Keep the array in a size of 6
+        if (scoreArrayJSON.Count > 6)
+        {
+            for (int i = scoreArrayJSON.Count+1 ; i > 5; i--)
+            {
+                scoreArrayJSON.Remove(i);
+            }
+        }
         
         string score = scoreArrayJSON.ToString();
 
-        File.WriteAllText(FILE_FULL_PATH,score);
+        File.WriteAllText(FILE_FULL_PATH, score);
     }
 
     void ReadScore()
@@ -111,9 +138,8 @@ public class MainInfo : MonoBehaviour
                 string playerScore = player["score"].Value;
                 scores.Add(playerScore);
             }
-            
         }
-        
+
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             TextMeshPro scoreList = GameObject.Find("ScoreList").GetComponent<TextMeshPro>();
@@ -129,6 +155,6 @@ public class MainInfo : MonoBehaviour
 
 
     }
-    
-    
+
+
 }
